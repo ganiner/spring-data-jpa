@@ -85,7 +85,7 @@ public class EmployeeJPATest {
     public void should_return_influence_lines_when_update_employee_name() throws Exception {
         //6.将xiaohong的名字改成xiaobai,输出这次修改影响的行数
         Integer expectedLine = 1;
-        Integer actualLine = null;
+        Integer actualLine = employeeRepository.updateName("xiaohong","xiaobai");
         assertThat(actualLine).isEqualTo(expectedLine);
     }
 
@@ -93,7 +93,8 @@ public class EmployeeJPATest {
     public void should_deleted_employee_when_given_employee_name() throws Exception {
         //7.删除姓名是xiaohong的employee
         Employee expectedEmployee = new Employee(1,"xiaohong",19,"female",1,7000);
-        Employee actualEmployee = null;
+        employeeRepository.deleteByName("xiaohong");
+        Employee actualEmployee = employeeRepository.findFirstByName("xiaohong");
         assertThat(actualEmployee).isNull();
     }
 }
