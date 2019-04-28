@@ -69,7 +69,7 @@ public class EmployeeJPATest {
     public void should_return_employee_list_when_input_page_request() throws Exception {
         //4.实现对Employee的分页查询，每页两条数据，一共三页数。
         //注意：PageRequest的构造方法已经弃用了代替的是PageRequest.of,并且最后一个参数代表按照table中的哪一个字段排序
-        Page<Employee> EmployeePage = null;
+        Page<Employee> EmployeePage = employeeRepository.findAll(PageRequest.of(1, 2, Sort.Direction.DESC, "id"));
         assertThat(EmployeePage.getTotalPages()).isEqualTo(3);
     }
 
@@ -77,7 +77,7 @@ public class EmployeeJPATest {
     public void should_return_company_name_when_input_employee_name() throws Exception {
         //5.查找xiaohong的所在的公司的公司名称
         String expectedCompanyName = "alibaba";
-        String actualCompanyName = null;
+        String actualCompanyName = employeeRepository.findCompanyNameByEmployeeName("xiaohong");
         assertThat(actualCompanyName).isEqualTo(expectedCompanyName);
     }
 
